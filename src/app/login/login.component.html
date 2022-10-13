@@ -1,0 +1,29 @@
+<div class="w-75 m-auto py-5">
+  <div *ngIf="error" class="alert alert-danger">
+    <p>{{error}}</p>
+  </div>
+  <form [formGroup]="loginForm" (ngSubmit)="submitLoginForm(loginForm)">
+
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input [class.is-invalid]="loginForm.get('email')?.touched && loginForm.get('email')?.invalid"
+        formControlName="email" type="text" id="email" class="form-control">
+      <div class="alert alert-danger my-2"
+        *ngIf="loginForm.get('email')?.errors !=null && loginForm.get('email')?.touched">
+        <p *ngIf="loginForm.get('email')?.errors?.['required']">Email is required</p>
+        <p *ngIf="loginForm.get('email')?.errors?.['email']">Email is invalid</p>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="password">Password:</label>
+      <input [class.is-invalid]="loginForm.get('password')?.touched && loginForm.get('password')?.invalid"
+        formControlName="password" type="text" id="password" class="form-control">
+      <div class="alert alert-danger my-2"
+        *ngIf="loginForm.get('password')?.errors !=null && loginForm.get('password')?.touched">
+        <p *ngIf="loginForm.get('password')?.errors?.['required']">password is required</p>
+        <p *ngIf="loginForm.get('password')?.errors?.['pattern']">password is invalid</p>
+      </div>
+    </div>
+    <button [disabled]="loginForm.invalid" class="btn btn-info my-2">login</button>
+  </form>
+</div>
